@@ -20,6 +20,11 @@ rule DHT_Adware
         $DHTstring2 = "GetEncryptedValueFromNameEdge" ascii wide
         $DHTstring3 = "GetEncryptedValueFromNameFirefox" ascii wide
         $DHTstring4 = "CreateDecryptor" ascii wide
+	    $DHTstring5 = "AdUrlReceived" ascii wide
+        $DHTstring6 = "ErrorOpenAdUrl" ascii wide
+        $DHTstring7 = "ErrorReadingCookies" ascii wide
+        $DHTstring8 = "AddUrlObtained" ascii wide
+        $DHTstring9 = "AddUrlNull" ascii wide
 
         $method1 = "OpenAdUrlInHiddenBrowser" ascii wide
         $method2 = "IsAppRunningInVirtualMachine" ascii wide
@@ -42,9 +47,9 @@ rule DHT_Adware
         uint16(0) == 0x5A4D and 
         pe.imports("mscoree.dll") and
         (
-            (all of ($DHTstring*) or ($filename and 2 of ($DHTstring*)))
+            (3 of ($DHTstring*) or ($filename and 2 of ($DHTstring*)))
             or
-            (all of ($method*))
+            (3 of ($method*))
             or
             ((all of ($config*) and 1 of ($string*)) or 2 of ($dlMethod*))
         )
